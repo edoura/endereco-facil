@@ -5,5 +5,10 @@
 }
 
 .jumbotron {
-  padding: 40px 20px 20px 20px !important;
+	padding: 40px 20px 20px 20px !important;
+}
+
+.btn-ropositorio{
+	text-align: center;
+	margin-top: 2%;
 }
