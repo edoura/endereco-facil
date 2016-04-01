@@ -1,4 +1,4 @@
-## Endereco fácil
+## Endereço fácil
 
 [DEMO](http://edoura.github.io/endereco-facil/)
 
