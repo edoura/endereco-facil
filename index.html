@@ -14,7 +14,7 @@
 
 <body ng-app="myapp">
 
-	<div ng-controller="MyController" class="container-fluid">
+	<div ng-controller="cepController" class="container-fluid">
 
 		<div class="jumbotron" style="margin-top: 5%;">
 			<div class="row">
@@ -28,7 +28,7 @@
 									<input type="text" class="form-control" ng-model="cep" placeholder="Somente números">
 								</div>
 								<div class="col-lg-1">
-									<button type="submit" class="btn btn-primary btn-sm" ng-click="buscaEndereco.doClick(item, $event)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+									<button type="submit" class="btn btn-primary btn-sm" ng-click="endereco.doClick(item, $event)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 								</div>
 							</div>
 							<br>
@@ -37,18 +37,18 @@
 							<div class="form-group">
 								<label class="col-lg-1 control-label font-form">Logradouro</label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" ng-model="buscaEndereco.logradouro" disabled=""><br>
+									<input type="text" id="logradouro" class="form-control" ng-model="endereco.logradouro" disabled=""><br>
 								</div>
 								<label class="col-lg-1 control-label font-form">Numero</label>
 								<div class="col-lg-2">
-									<input type="text" class="form-control" ng-model="numero"><br>
+									<input type="text" id="numero" class="form-control" ng-model="numero"><br>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-lg-1 control-label font-form">Bairro</label>
 								<div class="col-lg-6">
-									<input type="text" class="form-control" ng-model="buscaEndereco.bairro" disabled=""><br>
+									<input type="text" id="bairro" class="form-control" ng-model="endereco.bairro" disabled=""><br>
 								</div>
 								<label class="col-lg-2 control-label font-form">Complemento</label>
 								<div class="col-lg-3">
@@ -59,16 +59,16 @@
 							<div class="form-group">
 								<label class="col-lg-1 control-label font-form">Cidade</label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" ng-model="buscaEndereco.cidade" disabled=""><br>
+									<input type="text" id="cidade" class="form-control" ng-model="endereco.cidade" disabled=""><br>
 								</div>
 								<label class="col-lg-1 control-label font-form">UF</label>
 								<div class="col-lg-2">
-									<input type="text" class="form-control" ng-model="buscaEndereco.estado" disabled=""><br>
+									<input type="text" id="uf" class="form-control" ng-model="endereco.estado" disabled=""><br>
 								</div>
 							</div>
 							<p style="text-align:right;">
 								<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Voltar</button>
-								<button type="submit" class="btn btn-primary btn-sm">Cadastrar</button>
+								<input type="submit" class="btn btn-primary btn-sm" id="btnMaps" value="Mostrar no mapa"/>
 							</p>
 
 						</fieldset>
@@ -82,8 +82,6 @@
 			</div> <!-- /row -->
 		</div> <!-- /jumbotron -->
 	</div> <!-- /container -->
-
-	<script src="buscaCep.js"></script>
 
 </body>
 
@@ -101,8 +99,10 @@
 <!-- Maps API Javascript -->
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-<!-- Arquivo de inicialização do mapa -->
+<!-- Inicialização do mapa -->
 <script src="mapa.js"></script>
 
+<!-- Consulta CEP -->
+<script src="buscaCep.js"></script>
 
 </html>

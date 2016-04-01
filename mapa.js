@@ -24,4 +24,39 @@ function initialize() {
 
 $(document).ready(function () {
     initialize();
+
+    function carregarNoMapa(endereco) {
+        geocoder.geocode({ 'address': endereco + ', Brasil', 'region': 'BR' }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+
+                    $('#txtLatitude').val(latitude);
+                    $('#txtLongitude').val(longitude);
+
+                    var location = new google.maps.LatLng(latitude, longitude);
+                    marker.setPosition(location);
+                    map.setCenter(location);
+                    map.setZoom(16);
+                }
+            }
+        });
+    }
+
+    $("#btnMaps").click(function() {
+
+        var logradouro = $("#logradouro").val();
+        var numero = $("#numero").val();
+        var bairro = $("#bairro").val();
+        var cidade = $("#cidade").val();
+        var uf = $("#uf").val();
+
+        var endereco = logradouro + ", "+numero+" - "+bairro+", "+cidade+" - "+uf;
+
+        alert(endereco);
+
+        carregarNoMapa($(endereco).val()); // Esse parte. De passar como parametro.
+    })
+
 });
