@@ -56,7 +56,6 @@ $(document).ready(function () {
 
         alert(endereco);
 
-        carregarNoMapa($(endereco).val()); // Esse parte. De passar como parametro.
+        carregarNoMapa(endereco); // Esse parte. De passar como parametro.
     })
-
 });
