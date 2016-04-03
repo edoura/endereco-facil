@@ -5,7 +5,7 @@ function MapaApp() {
     googleMaps = google.maps,
     geocoder = new googleMaps.Geocoder(),
     map = new googleMaps.Map(mapElement, options),
-    latlng = googleMaps.LatLng(-18.8800397, -47.05878999999999),
+    latlng = new googleMaps.LatLng(-18.8800397, -47.05878999999999),
     marker = new googleMaps.Marker({
       map: map,
       draggable: true,
