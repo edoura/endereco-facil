@@ -1,62 +1,64 @@
-var geocoder;
-var map;
-var marker;
+function MapaApp() {
+  var mapElement = document.getElementById('mapa'),
+    mapsButton = document.getElementById('btnMaps'),
+    region = 'BR',
+    googleMaps = google.maps,
+    geocoder = new googleMaps.Geocoder(),
+    map = new googleMaps.Map(mapElement, options),
+    latlng = googleMaps.LatLng(-18.8800397, -47.05878999999999),
+    marker = new googleMaps.Marker({
+      map: map,
+      draggable: true,
+      position: latlng
+    }),
+    options = {
+      zoom: 5,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    },
+    bind = function () {
+      mapsButton.onclick = handleMapsButtonClick;
+    },
+    carregarNoMapa = function (localization) {
+      geocoder.geocode(localization, function (results, status) {
+        if (status == googleMaps.GeocoderStatus.OK) {
+          if (results[0]) {
+            var geometryLocation = results[0].geometry.location,
+              latitude = geometryLocation.lat(),
+              longitude = geometryLocation.lng();
 
-function initialize() {
-    var latlng = new google.maps.LatLng(-18.8800397, -47.05878999999999);
-    var options = {
-        zoom: 5,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+            // U.setValueById('txtLatitude', latitude);
+            // U.setValueById('txtLongitude', longitude);
+
+            var localization = googleMaps.LatLng(latitude, longitude);
+
+            marker.setPosition(localization);
+            map.setCenter(localization);
+            map.setZoom(16);
+          }
+        }
+      });
+    },
+    handleMapsButtonClick = function () {
+      var logradouro = U.getValueById('logradouro'),
+        numero = U.getValueById('numero'),
+        bairro = U.getValueById('bairro'),
+        cidade = U.getValueById('cidade'),
+        uf = U.getValueById('uf'),
+        pais = 'Brasil',
+        endereco = logradouro + ', ' + numero + ' - ' + bairro + ', ' + cidade + ' - ' + uf + ', ' + pais;
+
+      console.log(endereco);
+
+      carregarNoMapa({
+        'address': endereco,
+        'region': region
+      }); // Esse parte. De passar como parametro.
     };
 
-    map = new google.maps.Map(document.getElementById("mapa"), options);
-
-    geocoder = new google.maps.Geocoder();
-
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-    });
-
-    marker.setPosition(latlng);
+  bind();
 }
 
 $(document).ready(function () {
-    initialize();
-
-    function carregarNoMapa(endereco) {
-        geocoder.geocode({ 'address': endereco + ', Brasil', 'region': 'BR' }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    var latitude = results[0].geometry.location.lat();
-                    var longitude = results[0].geometry.location.lng();
-
-                    $('#txtLatitude').val(latitude);
-                    $('#txtLongitude').val(longitude);
-
-                    var location = new google.maps.LatLng(latitude, longitude);
-                    marker.setPosition(location);
-                    map.setCenter(location);
-                    map.setZoom(16);
-                }
-            }
-        });
-    }
-
-    $("#btnMaps").click(function() {
-
-        var logradouro = $("#logradouro").val();
-        var numero = $("#numero").val();
-        var bairro = $("#bairro").val();
-        var cidade = $("#cidade").val();
-        var uf = $("#uf").val();
-
-        var endereco = logradouro + ", "+numero+" - "+bairro+", "+cidade+" - "+uf;
-
-        alert(endereco);
-
-        carregarNoMapa($(endereco).val()); // Esse parte. De passar como parametro.
-    })
-
+  var mapaApp = new MapaApp();
 });
