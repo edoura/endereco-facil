@@ -1,20 +1,18 @@
+var map, marker, geocoder;
+
 function MapaApp() {
   var mapElement = document.getElementById('mapa'),
     mapsButton = document.getElementById('btnMaps'),
     region = 'BR',
     googleMaps = google.maps,
-    geocoder = new googleMaps.Geocoder(),
-    map = new googleMaps.Map(mapElement, options),
+    geocoder = window.geocoder,
+    map = window.map,
+    marker = window.marker,
     latlng = new googleMaps.LatLng(-18.8800397, -47.05878999999999),
-    marker = new googleMaps.Marker({
-      map: map,
-      draggable: true,
-      position: latlng
-    }),
     options = {
       zoom: 5,
       center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: googleMaps.MapTypeId.ROADMAP
     },
     bind = function () {
       mapsButton.onclick = handleMapsButtonClick;
@@ -30,7 +28,7 @@ function MapaApp() {
             // U.setValueById('txtLatitude', latitude);
             // U.setValueById('txtLongitude', longitude);
 
-            var localization = googleMaps.LatLng(latitude, longitude);
+            var localization = new googleMaps.LatLng(latitude, longitude);
 
             marker.setPosition(localization);
             map.setCenter(localization);
@@ -55,6 +53,14 @@ function MapaApp() {
         'region': region
       }); // Esse parte. De passar como parametro.
     };
+
+  geocoder = new googleMaps.Geocoder();
+  map = new googleMaps.Map(mapElement, options);
+  marker = new googleMaps.Marker({
+    map: map,
+    draggable: true,
+    position: latlng
+  });
 
   bind();
 }
